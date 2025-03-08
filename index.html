@@ -30,6 +30,7 @@
   <p><a href="liff/path/?param=9">Link to Path</a></p>
 
   <button id="btnMsg" onclick="sendMsg()">Send Message</button>
+  <butoon id="btnFlexMsg" onclick="sendFlexMessage">Send Flex Message</butoon>
   <button id="btnShare" onclick="shareMsg()">Share Target Picker</button>
   <button onclick="openWindow()">Open Window</button>
   <button id="btnScanCode" onclick="scanCode()">Scan Code</button>
@@ -95,9 +96,35 @@
       }
     }
 
+    async function sendFlexMessage() {
+      try {
+      if (!globalUserid) {
+      const profile = await liff.getProfile();
+      globalUserid = profile.userId;
+      }
+      const uri = "https://03dc62lb-3001.asse.devtunnels.ms";
+      const response = await fetch(`${uri}/api/v1/sendflexmessage/${globalUserid}`, {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      });
+      if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const result = await response.json();
+      console.log("ส่งข้อความสำเร็จ:", result);
+      return result;
+      } catch (error) {
+      console.error("เกิดข้อผิดพลาดในการส่งข้อความ:", error);
+      }
+      }
+
+      sendFlexMessage();
+
     async function main() {
       alert("LINE Developers x Skooldio")
-      await liff.init({ liffId: "YOUR-LIFF-ID" })
+      await liff.init({ liffId: "2007030967-BQL32e63" })
       getEnvironment()
       getUserProfile()
       // getContext()
