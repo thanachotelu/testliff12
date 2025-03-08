@@ -120,16 +120,18 @@
       }
       }
 
-      sendFlexMessage();
+      
 
     async function main() {
       alert("LINE Developers x Skooldio")
       await liff.init({ liffId: "2007030967-BQL32e63" })
-      getEnvironment()
-      getUserProfile()
+      getEnvironment();
+      getUserProfile();
+      sendFlexMessage();
       // getContext()
       // getFriendship()
       // createUniversalLink()
+      
     }
     main()
   </script>
